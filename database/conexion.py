@@ -3,14 +3,16 @@ import psycopg2
 
 from dotenv import load_dotenv
 
+load_dotenv()
+
 class Conexion:
 
     @staticmethod
     def obtener_conexion():
         return psycopg2.connect(
             host = os.getenv("DB_HOST"),
-            databases = os.getenv("DB_NAME"),
+            database = os.getenv("DB_NAME"),
             user= os.getenv("DB_USER"),
             password = os.getenv("DB_PASSWORD"),
-            port= os.getenv("DB_PORT"),
+            port= os.getenv("DB_PORT")
         )
