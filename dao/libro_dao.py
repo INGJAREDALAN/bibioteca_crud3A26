@@ -46,13 +46,14 @@ class LibroDAO:
         conexion = Conexion.obtener_conexion()
         cursor = conexion.cursor()
         sql= """
-        INSERT INTO libro (id, titulo, autor,isbn, dispoonible)
+        INSERT INTO libro (id, titulo, autor,isbn, disponible)
         VALUES (%s, %s, %s, %s, %s)
         """
 
         cursor.execute(
             sql,
-            (libro.libro,
+            (libro.id,
+            libro.titulo,
             libro.autor,
             libro.isbn,
             libro.disponible)

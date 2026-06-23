@@ -31,9 +31,10 @@ def insertar_libro():
     isbn = input("Escriba el isbn del nuevo libro: ")
     disponible = True
     try:
+
         libro_dao = LibroDAO()
         id = libro_dao.obtener_ultimo_id() + 1
-        print(f"id:")
+        print(f"ID: {id}")
         libro = Libro(id, titulo, autor, isbn, disponible)
         libro_dao.insertar(libro)
         print("Insercion realizada con éxito")
