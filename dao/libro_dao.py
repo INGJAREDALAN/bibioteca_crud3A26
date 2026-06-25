@@ -76,7 +76,7 @@ class LibroDAO:
 
         cursor.execute(
             sql,
-            (libro.libro,
+            (libro.titulo,
             libro.autor,
             libro.isbn,
             libro.disponible,
