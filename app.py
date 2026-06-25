@@ -61,7 +61,17 @@ def actualizar_libro():
         print("Error al actualizar un libro")
         print(e)
 
-        
+def eliminar_libro():
+    try:
+        libro_dao = LibroDAO()
+        print("Lista de libros disponibles:")
+        ver_libros()
+        id = int(input("Escribe el id del libro a elimar: "))
+        libro_dao.eliminar(id)
+        print(f"El libro {id} ha sido eliminado con exito")
+    except Exception as e:
+        print(f"Error al eliminar el libro {id}")
+        print(e)
 
 def main():
     print("=== BIBLIOTECA UNIVERSITARIA ===")
