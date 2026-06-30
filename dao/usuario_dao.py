@@ -7,37 +7,22 @@ class UsuarioDAO:
         conexion = Conexion.obtener_conexion()
         cursor = conexion.cursor()
 
-        cursor.execute("SELECT * FROM vista_usuario")
-        registro  = cursor.fetchall()
+        cursor.execute("""SELECT usuario.id, usuario.nombre, usuario.matricula, usuario.correo, carrera.carrera FROM usuario JOIN carrera ON usuario.carrera = carrera.id;""")
+        registros  = cursor.fetchall()
 
-        cursor.execute("""
-                SELECT 
-                usuario.id,
-                usuario.nombre,
-                usurio.matricula,
-                usuario.carrera
-                usurio.correo
-                FROM usuario
-                INNER JOIN autor ON 
-                usuario.nombre = usuario.id
-        """)
-        registros = cursor.fetchall()
-
-        registros = cursor.fetchall()
-
-        Usuario = []
+        usuarios = []
         for registro in registros:
             usuario = Usuario(
             id=registro[0],
             nombre=registro[1],
             matricula=registro[2],
-            carrera=registro[3],
-            correo=registro[4]
+            correo=registro[3],
+            carrera=registro[4]
             )
-            usuario.append(usuario)
+            usuarios.append(usuario)
         cursor.close()
         conexion.close()
-        return usuario
+        return usuarios
     
     def insertar(self, usuario):
         conexion = Conexion.obtener_conexion()
@@ -52,8 +37,9 @@ class UsuarioDAO:
             (usuario.id,
             usuario.nombre,
             usuario.matricula,
-            usuario.carrera,
-            usuario.correo)
+            usuario.correo,
+            usuario.carrera
+            )
         )
 
         conexion.commit()
@@ -74,18 +60,18 @@ class UsuarioDAO:
             sql,
             (usuario.nombre,
             usuario.matricula,
-            usuario.carrera,
             usuario.correo,
+            usuario.carrera,
             usuario.id)
         )
 
-    def eliminar(self, usuario_id):
+    def eliminar(self, id):
         conexion = Conexion.obtener_conexion()
         cursor = conexion.cursor()
 
         cursor.execute(
                 "DELETE FROM usuario WHERE id = %s",
-                (usuario_id,)
+                (id,)
                 )
             
         conexion.commit()

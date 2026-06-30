@@ -75,23 +75,25 @@ def eliminar_libro():
         print(f"Error al eliminar el libro {id}")
         print(e)
 
+
+
 def ver_usuario():
     try: 
         usuario_dao = UsuarioDAO()
         
-        usuario = usuario_dao.obtener_todos()
+        usuarios = usuario_dao.obtener_todos()
 
         print(" === usuarios en la biblioteca ===")
 
-        if len(usuario) == 0:
+        if len(usuarios) == 0:
             print("No hay usuarios registrados.")
         else:
-            for usuario in usuario: 
+            for usuario in usuarios: 
                 print("--------------------------------")
                 print(
                     f"ID: {usuario.id}, Nombre: {usuario.nombre}, "
                     f"Usuario: {usuario.matricula}, Carrera: {usuario.carrera}, "
-                    f"Existente: {usuario.correo}"
+                    f"Correo Electronico: {usuario.correo}"
                 )
                 print("-------------------------------")
         print("\n Conexion Exitosa a la Base de Datos")
@@ -118,9 +120,9 @@ def menu_libro():
             eliminar_libro()
 
 def insertar_usuario():
-    nombre = input("Escrribe el nombre del usuario: ")
-    matricula = int(input("Escribe el numero de la matrucla: "))
-    carrera = input("Escriba la carrera del nuevo usuario: ")
+    nombre = input("Escribe el nombre del usuario: ")
+    matricula = input("Escribe el numero de la matrucla: ")
+    carrera = int(input("Escriba la carrera del nuevo usuario: "))
     correo = input("Escribe el correo del nuevo usuario: ")
     try:
 
@@ -142,9 +144,9 @@ def actualizar_usuario():
         libros = usuario_dao.obtener_todos()
         id = int(input("Escribe el id del usuario a actualizar: "))
         nombre = input("Escribe el nuevo nombre")
-        matricula = input("Escribe el nuevo autor")
-        carrera = input("Escribe el nuevo ISBN")
-        correo = bool(input("Escribe el nuevo valor disponible"))
+        matricula = input("Escribe la nueva matricula")
+        carrera = int(input("Escribe la nueva carrera"))
+        correo = input("Escribe el nuevo correo ")
         usuario = Usuario(id, nombre,matricula, carrera, correo)
         usuario_dao.actualizar(usuario)
         print(f"El usuario {id} se ha actualizado exitosamente")
@@ -188,6 +190,15 @@ def menu_usuarios():
 def main():
     print("=== BIBLIOTECA UNIVERSITARIA ===")
     print("Menu de opciones")
+    print("1 - Libros")
+    print("2 - Usuarios")
+    option = int(input("Selecciona una opción 1 o 2: "))
+
+    match option:
+        case 1:
+            menu_libro()
+        case 2:
+            menu_usuarios()
     
     
 if __name__ == "__main__":
